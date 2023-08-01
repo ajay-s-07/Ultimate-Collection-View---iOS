@@ -16,6 +16,16 @@ class TempCell: UICollectionViewCell {
     
     let imageView = UIImageView()
     
+    let button: UIImageView = {
+        let button = UIImageView()
+        let confg = UIImage.SymbolConfiguration(pointSize: 24)
+        button.image = UIImage(systemName: "trash.fill", withConfiguration: confg)
+        button.contentMode = .center
+        button.tintColor = .white
+        
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -30,7 +40,6 @@ class TempCell: UICollectionViewCell {
         rect.backgroundColor = .black
         rect.alpha = 0.5
         addSubview(rect)
-        
         
         
         rect.translatesAutoresizingMaskIntoConstraints = false
@@ -64,6 +73,17 @@ class TempCell: UICollectionViewCell {
         stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
         stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true
         
+        addSubview(button)
+        button.isUserInteractionEnabled = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        button.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleButtonAction))
+        button.addGestureRecognizer(tap)
+        
         backgroundColor = .systemBlue
         layer.cornerRadius = 16
         clipsToBounds = true
@@ -86,6 +106,10 @@ class TempCell: UICollectionViewCell {
                 }
             }
         }.resume()
+    }
+    
+    @objc func handleButtonAction(gesture: UITapGestureRecognizer) {
+        print("Button action working")
     }
     
 }
