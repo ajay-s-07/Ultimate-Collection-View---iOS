@@ -9,6 +9,8 @@ import UIKit
 
 class TempCell: UICollectionViewCell {
     
+    weak var collectionViewController: CollectionViewController?
+    
     let name = UILabel()
     let email = UILabel()
     
@@ -109,7 +111,28 @@ class TempCell: UICollectionViewCell {
     }
     
     @objc func handleButtonAction(gesture: UITapGestureRecognizer) {
+        
+        showAlert()
         print("Button action working")
+    }
+    
+    func showAlert() {
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.warning)
+        
+        let alert = UIAlertController(title: "Delete Item?", message: "This item will be deleted.", preferredStyle: .alert)
+    
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        let delete = UIAlertAction(title: "Delete", style: .destructive) { action in
+            print("delete")
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(delete)
+        
+        if let controller = collectionViewController {
+            controller.present(alert, animated: true)
+        }
     }
     
 }
