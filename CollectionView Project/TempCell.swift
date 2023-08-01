@@ -124,7 +124,12 @@ class TempCell: UICollectionViewCell {
     
         let cancel = UIAlertAction(title: "Cancel", style: .cancel)
         let delete = UIAlertAction(title: "Delete", style: .destructive) { action in
-            print("delete")
+            if let controller = self.collectionViewController {
+                if let indexPath = controller.collectionView.indexPath(for: self) {
+                    controller.tags.remove(at: indexPath.item)
+                    controller.updateSnapshot(animatingChange: true)
+                }
+            }
         }
         
         alert.addAction(cancel)

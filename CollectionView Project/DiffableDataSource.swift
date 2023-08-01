@@ -33,7 +33,7 @@ extension CollectionViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Tag>()
         snapshot.appendSections([.all])
         snapshot.appendItems(tags, toSection: .all)
-        dataSource.apply(snapshot, animatingDifferences: false)
+        dataSource.apply(snapshot, animatingDifferences: animatingChange)
     }
     
 }
