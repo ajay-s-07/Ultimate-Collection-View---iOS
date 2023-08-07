@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TempCell: UICollectionViewCell {
+class TempCell: UICollectionViewCell, UIGestureRecognizerDelegate {
     
     weak var collectionViewController: CollectionViewController?
     
@@ -145,21 +145,34 @@ class TempCell: UICollectionViewCell {
     
     func addPanGesture() {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+        pan.delegate = self
         addGestureRecognizer(pan)
     }
     
     @objc func handlePanGesture(gesture: UIPanGestureRecognizer) {
         print("Inside handle pan")
-        //        let translation = gesture.translation(in: gesture.view)
-        //        switch gesture.state {
-        //        case .began, .changed:
-        //            let transform = CGAffineTransform(translationX: translation.x, y: .zero)
-        //            imageView.transform = transform
-        //        case .ended:
-        //            imageView.transform = .identity
-        //        default:
-        //            print("Pan default")
-        //        }
+        let translation = gesture.translation(in: gesture.view)
+        
+        let velocity = gesture.velocity(in: gesture.view)
+        
+        let x = translation.x
+        if(x > 0) {
+            switch gesture.state {
+            case .began, .changed:
+                if velocity.x > velocity.y {
+                    let transform = CGAffineTransform(translationX: translation.x, y: .zero)
+                    gesture.view!.transform = transform
+                }
+            case .ended:
+                gesture.view!.transform = .identity
+            default:
+                print("Pan default")
+            }
+        }
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        true
     }
     
 }

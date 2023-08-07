@@ -28,6 +28,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        collectionView.alwaysBounceVertical = true
+        
         collectionView.register(TempCell.self, forCellWithReuseIdentifier: id)
         viewModel.loadData { tags in
             self.tags = tags.filter { tag in
