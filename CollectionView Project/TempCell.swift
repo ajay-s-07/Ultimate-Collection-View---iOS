@@ -164,8 +164,19 @@ class TempCell: UICollectionViewCell, UIGestureRecognizerDelegate {
 
         switch gesture.state {
         case .began, .changed:
-            var transform = CGAffineTransform(translationX: translation.x, y: .zero)
-            gesture.view!.transform = transform
+            
+            let offset = gesture.translation(in: gesture.view)
+            let angle = min(offset.x / (gesture.view?.frame.width)! * 90, 60)
+            
+            let transform = CGAffineTransform(translationX: translation.x, y: .zero)
+//            gesture.view!.transform = transform
+            
+            if translation.x > 0 {
+                gesture.view!.transform = transform.rotated(by: angle / 360 * .pi)
+            }
+            if translation.x < 0 {
+                gesture.view!.transform = transform.rotated(by: angle / 360 * .pi)
+            }
             
             if translation.x >= 150 || translation.x <= -150 {
                 showAlert()
