@@ -38,6 +38,7 @@ class TempCell: UICollectionViewCell {
         imageView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         imageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        imageView.isUserInteractionEnabled = true
         
         rect.backgroundColor = .black
         rect.alpha = 0.5
@@ -89,6 +90,8 @@ class TempCell: UICollectionViewCell {
         backgroundColor = .systemBlue
         layer.cornerRadius = 16
         clipsToBounds = true
+        
+        addPanGesture()
     }
     
     
@@ -138,6 +141,25 @@ class TempCell: UICollectionViewCell {
         if let controller = collectionViewController {
             controller.present(alert, animated: true)
         }
+    }
+    
+    func addPanGesture() {
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+        addGestureRecognizer(pan)
+    }
+    
+    @objc func handlePanGesture(gesture: UIPanGestureRecognizer) {
+        print("Inside handle pan")
+        //        let translation = gesture.translation(in: gesture.view)
+        //        switch gesture.state {
+        //        case .began, .changed:
+        //            let transform = CGAffineTransform(translationX: translation.x, y: .zero)
+        //            imageView.transform = transform
+        //        case .ended:
+        //            imageView.transform = .identity
+        //        default:
+        //            print("Pan default")
+        //        }
     }
     
 }
