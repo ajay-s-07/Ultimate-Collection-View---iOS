@@ -32,8 +32,12 @@ class TempCell: UICollectionViewCell, UIGestureRecognizerDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        backgroundColor = UIColor(white: 0.9, alpha: 1)
+        
         addSubview(imageView)
-        imageView.backgroundColor = .red
+        imageView.image = UIImage(systemName: "photo", withConfiguration: UIImage.SymbolConfiguration(pointSize: 50))
+        imageView.contentMode = .center
+        imageView.tintColor = .lightGray
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         imageView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
@@ -42,7 +46,7 @@ class TempCell: UICollectionViewCell, UIGestureRecognizerDelegate {
         imageView.isUserInteractionEnabled = true
         
         rect.backgroundColor = .black
-        rect.alpha = 0.5
+        rect.alpha = 0
         addSubview(rect)
         
         
@@ -60,7 +64,9 @@ class TempCell: UICollectionViewCell, UIGestureRecognizerDelegate {
         email.font = .systemFont(ofSize: 16)
         
         name.textColor = .white
+        name.alpha = 0
         email.textColor = .white
+        email.alpha = 0
 
         let stackView = UIStackView(arrangedSubviews: [
             UIStackView(arrangedSubviews: []),
@@ -85,10 +91,11 @@ class TempCell: UICollectionViewCell, UIGestureRecognizerDelegate {
         button.widthAnchor.constraint(equalToConstant: 70).isActive = true
         button.heightAnchor.constraint(equalToConstant: 70).isActive = true
         
+        button.alpha = 0
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleButtonAction))
         button.addGestureRecognizer(tap)
         
-        backgroundColor = .systemBlue
         layer.cornerRadius = 16
         clipsToBounds = true
         
@@ -107,6 +114,10 @@ class TempCell: UICollectionViewCell, UIGestureRecognizerDelegate {
             if let data = data {
                 if let image = UIImage(data: data) {
                     DispatchQueue.main.async {
+                        self.rect.alpha = 0.5
+                        self.name.alpha = 1
+                        self.email.alpha = 1
+                        self.button.alpha = 1
                         self.imageView.image = image
                     }
                 }
@@ -164,19 +175,12 @@ class TempCell: UICollectionViewCell, UIGestureRecognizerDelegate {
 
         switch gesture.state {
         case .began, .changed:
-            
-            let offset = gesture.translation(in: gesture.view)
-            let angle = min(offset.x / (gesture.view?.frame.width)! * 90, 60)
+            let angle = min(translation.x / (gesture.view?.frame.width)! * 90, 45)
             
             let transform = CGAffineTransform(translationX: translation.x, y: .zero)
-//            gesture.view!.transform = transform
             
-            if translation.x > 0 {
-                gesture.view!.transform = transform.rotated(by: angle / 360 * .pi)
-            }
-            if translation.x < 0 {
-                gesture.view!.transform = transform.rotated(by: angle / 360 * .pi)
-            }
+            // gesture.view!.transform = transform
+            gesture.view!.transform = transform.rotated(by: angle / 360 * .pi)
             
             if translation.x >= 150 || translation.x <= -150 {
                 showAlert()

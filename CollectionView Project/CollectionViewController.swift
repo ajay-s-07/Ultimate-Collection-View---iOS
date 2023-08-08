@@ -9,13 +9,25 @@ import UIKit
 
 class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    var tags = [Tag]()
+    var tags = [Tag]() {
+        didSet {
+            if tags.count != 0 {
+                DispatchQueue.main.async {
+                    if self.aiv.isAnimating {
+                        self.aiv.stopAnimating()
+                    }
+                }
+            }
+        }
+    }
     
     let id = "CollectionViewCell"
     let viewModel = ViewModel()
     
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Tag>
     lazy var dataSource = configureDataSource()
+    
+    let aiv =  UIActivityIndicatorView(style: .large)
     
     override init(collectionViewLayout layout: UICollectionViewLayout) {
         super.init(collectionViewLayout: layout)
@@ -28,6 +40,14 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        aiv.startAnimating()
+        aiv.hidesWhenStopped = true
+        
+        collectionView.addSubview(aiv)
+        aiv.translatesAutoresizingMaskIntoConstraints = false
+        aiv.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor).isActive = true
+        aiv.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor).isActive = true
+        
         collectionView.alwaysBounceVertical = true
         
         collectionView.register(TempCell.self, forCellWithReuseIdentifier: id)
@@ -35,6 +55,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             self.tags = tags.filter { tag in
                 tag.source != nil
             }
+            
             DispatchQueue.main.async {
                 self.updateSnapshot()
             }
