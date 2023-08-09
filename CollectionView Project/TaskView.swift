@@ -61,7 +61,7 @@ class TaskView: UIView {
         
         button.tintColor = .red
 //        button.layer.cornerRadius = 25
-        button.setImage(UIImage(systemName: "x.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 40)), for: .normal)
+        button.setImage(UIImage(systemName: "x.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 50)), for: .normal)
         
         addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -75,6 +75,7 @@ class TaskView: UIView {
     
     @objc func handleButton(button: UIButton) {
         print("button working")
+        self.removeFromSuperview()
     }
     
     required init?(coder: NSCoder) {

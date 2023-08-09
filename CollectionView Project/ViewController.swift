@@ -13,11 +13,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         let sampleVC = CollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
-        let sampleView = TaskView()
-        
+        let sampleView = sampleVC.view!
         view.addSubview(sampleView)
-//        addChild(sampleVC)
-//        sampleVC.didMove(toParent: self)
+        addChild(sampleVC)
+        sampleVC.didMove(toParent: self)
         
         sampleView.translatesAutoresizingMaskIntoConstraints = false
         sampleView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true

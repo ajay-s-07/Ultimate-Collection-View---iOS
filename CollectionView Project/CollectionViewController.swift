@@ -65,4 +65,19 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: view.frame.width - 48, height: 250)
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        addFullScreenView()
+    }
+    
+    func addFullScreenView() {
+        let taskView = TaskView()
+        view.addSubview(taskView)
+        
+        taskView.translatesAutoresizingMaskIntoConstraints = false
+        taskView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        taskView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        taskView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        taskView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
 }
