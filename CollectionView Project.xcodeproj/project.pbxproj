@@ -18,6 +18,7 @@
 		6A7050292A77A8EA0039555A /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7050282A77A8EA0039555A /* CollectionViewController.swift */; };
 		6A70502B2A77A8FE0039555A /* TempCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A70502A2A77A8FE0039555A /* TempCell.swift */; };
 		6A70502D2A77A9130039555A /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A70502C2A77A9130039555A /* ViewModel.swift */; };
+		6A9D2E352A825946008E631C /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9D2E342A825946008E631C /* TaskView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		6A7050282A77A8EA0039555A /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		6A70502A2A77A8FE0039555A /* TempCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempCell.swift; sourceTree = "<group>"; };
 		6A70502C2A77A9130039555A /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		6A9D2E342A825946008E631C /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				6A70502C2A77A9130039555A /* ViewModel.swift */,
 				6A7050262A77A8E50039555A /* Model.swift */,
 				6A7050242A77A8C60039555A /* DiffableDataSource.swift */,
+				6A9D2E342A825946008E631C /* TaskView.swift */,
 			);
 			path = "CollectionView Project";
 			sourceTree = "<group>";
@@ -158,6 +161,7 @@
 				6A7050152A77A8820039555A /* ViewController.swift in Sources */,
 				6A7050112A77A8820039555A /* AppDelegate.swift in Sources */,
 				6A7050132A77A8820039555A /* SceneDelegate.swift in Sources */,
+				6A9D2E352A825946008E631C /* TaskView.swift in Sources */,
 				6A7050252A77A8C60039555A /* DiffableDataSource.swift in Sources */,
 				6A70502D2A77A9130039555A /* ViewModel.swift in Sources */,
 				6A7050292A77A8EA0039555A /* CollectionViewController.swift in Sources */,
