@@ -110,6 +110,9 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         fullViewTrailingConstraint.isActive = true
         taskView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
+        let transform = CGAffineTransform(translationX: 0, y: cell.frame.minY - collectionView.contentOffset.y)
+        taskView.transform = transform
+        
         self.view.layoutIfNeeded()
         
         UIView.animate(withDuration: 0.36) {
@@ -117,7 +120,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             self.fullViewTrailingConstraint.constant = 0
             let height = (source.cover_photo.height * self.view.frame.width) / source.cover_photo.width
             taskView.heightConstraint.constant = height
-            
+            taskView.transform = .identity
+
             self.view.layoutIfNeeded()
         }
     }

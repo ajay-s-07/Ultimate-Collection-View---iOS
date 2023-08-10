@@ -25,7 +25,7 @@ class TaskView: UIView {
         addSubview(imageView)
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        imageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         imageView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         heightConstraint = imageView.heightAnchor.constraint(equalToConstant: 300)
         heightConstraint.isActive = true
