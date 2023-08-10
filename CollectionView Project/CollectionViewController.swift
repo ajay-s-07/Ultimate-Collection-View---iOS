@@ -85,12 +85,16 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         let tag = tags[index]
         guard let source = tag.source else { return }
         
+        guard let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? TempCell else {
+            return
+        }
+        
         let taskView = TaskView()
         let height = (source.cover_photo.height * view.frame.width) / source.cover_photo.width
         taskView.heightConstraint.constant = height
 
         taskView.title.text = tag.title.capitalized
-        loadImage(from: source.cover_photo.urls.regular, in: taskView.imageView)
+        taskView.imageView.image = cell.imageView.image
         taskView.text.text = source.description
         
         view.addSubview(taskView)
