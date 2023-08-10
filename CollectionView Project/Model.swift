@@ -34,6 +34,8 @@ struct Source: Decodable {
 struct CoverPhoto: Decodable {
     let id: String
     let urls: ImageURL
+    let width: CGFloat
+    let height: CGFloat
 }
 
 struct ImageURL: Decodable {

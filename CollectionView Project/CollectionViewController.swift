@@ -63,7 +63,18 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width - 48, height: 250)
+        
+        let tag = tags[indexPath.item]
+        
+        guard let source = tag.source else {
+            return .zero
+        }
+        
+        
+        let width = view.frame.width - 48
+        let height = (source.cover_photo.height * width) / source.cover_photo.width
+        
+        return .init(width: width, height: height)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

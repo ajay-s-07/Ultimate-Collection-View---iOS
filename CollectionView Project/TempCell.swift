@@ -36,7 +36,7 @@ class TempCell: UICollectionViewCell, UIGestureRecognizerDelegate {
         
         addSubview(imageView)
         imageView.image = UIImage(systemName: "photo", withConfiguration: UIImage.SymbolConfiguration(pointSize: 50))
-        imageView.contentMode = .center
+        imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .lightGray
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
@@ -51,10 +51,10 @@ class TempCell: UICollectionViewCell, UIGestureRecognizerDelegate {
         
         
         rect.translatesAutoresizingMaskIntoConstraints = false
-        rect.topAnchor.constraint(equalTo: topAnchor, constant: 150).isActive = true
         rect.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         rect.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         rect.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        rect.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         
         name.text = "Fusion Tech"
