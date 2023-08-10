@@ -9,6 +9,9 @@ import UIKit
 
 class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    var fullViewLeadingConstraint: NSLayoutConstraint!
+    var fullViewTrailingConstraint: NSLayoutConstraint!
+    
     var tags = [Tag]() {
         didSet {
             if tags.count != 0 {
@@ -90,7 +93,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         }
         
         let taskView = TaskView()
-        let height = (source.cover_photo.height * view.frame.width) / source.cover_photo.width
+        let height = (source.cover_photo.height * (view.frame.width - 48)) / source.cover_photo.width
         taskView.heightConstraint.constant = height
 
         taskView.title.text = tag.title.capitalized
@@ -101,22 +104,21 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         
         taskView.translatesAutoresizingMaskIntoConstraints = false
         taskView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        taskView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        taskView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        fullViewLeadingConstraint = taskView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24)
+        fullViewLeadingConstraint.isActive = true
+        fullViewTrailingConstraint = taskView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
+        fullViewTrailingConstraint.isActive = true
         taskView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-    }
-    
-    func loadImage(from urlString: String, in imgView: UIImageView) {
-        guard let url = URL(string: urlString) else { return }
         
-        URLSession.shared.dataTask(with: url) { data, responce, error in
-            if let data = data {
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        imgView.image = image
-                    }
-                }
-            }
-        }.resume()
+        self.view.layoutIfNeeded()
+        
+        UIView.animate(withDuration: 0.36) {
+            self.fullViewLeadingConstraint.constant = 0
+            self.fullViewTrailingConstraint.constant = 0
+            let height = (source.cover_photo.height * self.view.frame.width) / source.cover_photo.width
+            taskView.heightConstraint.constant = height
+            
+            self.view.layoutIfNeeded()
+        }
     }
 }
