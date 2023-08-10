@@ -29,16 +29,15 @@ class TaskView: UIView {
         
         title.text = "Hello"
         title.font = .boldSystemFont(ofSize: 48)
-        title.backgroundColor = .white
+        title.textColor = .gray
         
         imageView.addSubview(title)
         title.translatesAutoresizingMaskIntoConstraints = false
         title.topAnchor.constraint(equalTo: imageView.topAnchor,constant:  20).isActive = true
         title.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 20).isActive = true
         
-        desc.text = "Hi there, how are you?"
+        desc.text = "Description"
         desc.font = .boldSystemFont(ofSize: 32)
-        desc.backgroundColor = .yellow
         
         addSubview(desc)
         desc.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +58,8 @@ class TaskView: UIView {
         text.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
         text.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
-        button.tintColor = .red
+        button.tintColor = .gray
+        button.alpha = 0.9
 //        button.layer.cornerRadius = 25
         button.setImage(UIImage(systemName: "x.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 50)), for: .normal)
         
@@ -74,7 +74,6 @@ class TaskView: UIView {
     }
     
     @objc func handleButton(button: UIButton) {
-        print("button working")
         self.removeFromSuperview()
     }
     

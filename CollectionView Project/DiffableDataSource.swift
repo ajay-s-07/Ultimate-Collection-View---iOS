@@ -18,7 +18,7 @@ extension CollectionViewController {
         let dataSource = DataSource(collectionView: collectionView) {collectionView,indexPath,itemIdentifier in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.id, for: indexPath) as! TempCell
             let tag = self.tags[indexPath.item]
-            cell.name.text = tag.title
+            cell.name.text = tag.title.capitalized
             cell.collectionViewController = self
             if let source = tag.source {
                 cell.loadImage(from: source.cover_photo.urls.regular)

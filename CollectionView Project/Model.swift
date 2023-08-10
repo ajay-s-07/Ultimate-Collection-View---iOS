@@ -27,6 +27,7 @@ struct Tag: Decodable, Hashable {
 
 struct Source: Decodable {
     let title: String
+    let description: String
     let cover_photo: CoverPhoto
 }
 

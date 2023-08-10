@@ -67,17 +67,36 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        addFullScreenView()
+        addFullScreenView(index: indexPath.item)
     }
     
-    func addFullScreenView() {
+    func addFullScreenView(index: Int) {
+        let tag = tags[index]
+        
         let taskView = TaskView()
+        taskView.title.text = tag.title.capitalized
+        loadImage(from: tag.source?.cover_photo.urls.regular ?? "", in: taskView.imageView)
+        taskView.text.text = tag.source?.description
         view.addSubview(taskView)
         
         taskView.translatesAutoresizingMaskIntoConstraints = false
-        taskView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        taskView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         taskView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         taskView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         taskView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
+    
+    func loadImage(from urlString: String, in imgView: UIImageView) {
+        guard let url = URL(string: urlString) else { return }
+        
+        URLSession.shared.dataTask(with: url) { data, responce, error in
+            if let data = data {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        imgView.image = image
+                    }
+                }
+            }
+        }.resume()
     }
 }
