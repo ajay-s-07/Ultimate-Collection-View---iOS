@@ -14,17 +14,21 @@ class TaskView: UIView {
     let text = UITextView()
     let button = UIButton()
     
+    var heightConstraint: NSLayoutConstraint!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .systemBackground
         
         imageView.backgroundColor = .systemBlue
+        imageView.contentMode = .scaleAspectFit
         addSubview(imageView)
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
         imageView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        heightConstraint = imageView.heightAnchor.constraint(equalToConstant: 300)
+        heightConstraint.isActive = true
         imageView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         
         title.text = "Hello"

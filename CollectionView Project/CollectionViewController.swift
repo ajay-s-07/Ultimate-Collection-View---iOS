@@ -83,11 +83,16 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     
     func addFullScreenView(index: Int) {
         let tag = tags[index]
+        guard let source = tag.source else { return }
         
         let taskView = TaskView()
+        let height = (source.cover_photo.height * view.frame.width) / source.cover_photo.width
+        taskView.heightConstraint.constant = height
+
         taskView.title.text = tag.title.capitalized
-        loadImage(from: tag.source?.cover_photo.urls.regular ?? "", in: taskView.imageView)
-        taskView.text.text = tag.source?.description
+        loadImage(from: source.cover_photo.urls.regular, in: taskView.imageView)
+        taskView.text.text = source.description
+        
         view.addSubview(taskView)
         
         taskView.translatesAutoresizingMaskIntoConstraints = false
