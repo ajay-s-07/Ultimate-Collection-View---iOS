@@ -139,5 +139,28 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 
             self.view.layoutIfNeeded()
         }
+        
+        taskView.closeHandler = {
+            
+            taskView.button.alpha = 0
+            taskView.title.alpha = 0
+            taskView.desc.alpha = 0
+            taskView.text.alpha = 0
+            
+            UIView.animate(withDuration: 0.36, animations: {
+                taskView.layer.cornerRadius = 16
+                self.bottomConstraint.constant = -temp
+                self.fullViewLeadingConstraint.constant = 24
+                self.fullViewTrailingConstraint.constant = -24
+                let height = (source.cover_photo.height * self.view.frame.width - 48) / source.cover_photo.width
+                taskView.heightConstraint.constant = height
+                let transform = CGAffineTransform(translationX: 0, y: cell.frame.minY - self.collectionView.contentOffset.y)
+                taskView.transform = transform
+
+                self.view.layoutIfNeeded()
+            }, completion: {_ in
+                taskView.removeFromSuperview()
+            })
+        }
     }
 }

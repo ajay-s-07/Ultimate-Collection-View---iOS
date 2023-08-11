@@ -17,6 +17,8 @@ class TaskView: UIView {
     var heightConstraint: NSLayoutConstraint!
     var topConstraint: NSLayoutConstraint!
     
+    var closeHandler: (() -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .systemBackground
@@ -79,7 +81,10 @@ class TaskView: UIView {
     }
     
     @objc func handleButton(button: UIButton) {
-        self.removeFromSuperview()
+        
+        if let action = closeHandler {
+            action()
+        }
     }
     
     required init?(coder: NSCoder) {
