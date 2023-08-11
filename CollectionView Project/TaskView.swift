@@ -15,6 +15,7 @@ class TaskView: UIView {
     let button = UIButton()
     
     var heightConstraint: NSLayoutConstraint!
+    var topConstraint: NSLayoutConstraint!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,7 +26,8 @@ class TaskView: UIView {
         addSubview(imageView)
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        topConstraint = imageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor)
+        topConstraint.isActive = true
         imageView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         heightConstraint = imageView.heightAnchor.constraint(equalToConstant: 300)
         heightConstraint.isActive = true
