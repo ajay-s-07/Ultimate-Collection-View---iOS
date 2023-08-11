@@ -11,6 +11,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     
     var fullViewLeadingConstraint: NSLayoutConstraint!
     var fullViewTrailingConstraint: NSLayoutConstraint!
+    var bottomConstraint: NSLayoutConstraint!
     
     var tags = [Tag]() {
         didSet {
@@ -97,10 +98,14 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         taskView.heightConstraint.constant = height
 
         taskView.title.text = tag.title.capitalized
+        taskView.title.alpha = 0
+        taskView.button.alpha = 0
         taskView.imageView.image = cell.imageView.image
+        taskView.layer.cornerRadius = 16
         taskView.text.text = source.description
         
         view.addSubview(taskView)
+
         
         taskView.translatesAutoresizingMaskIntoConstraints = false
         taskView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -108,14 +113,24 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         fullViewLeadingConstraint.isActive = true
         fullViewTrailingConstraint = taskView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
         fullViewTrailingConstraint.isActive = true
-        taskView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        bottomConstraint = taskView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        bottomConstraint.isActive = true
         
         let transform = CGAffineTransform(translationX: 0, y: cell.frame.minY - collectionView.contentOffset.y)
         taskView.transform = transform
+        let temp = view.frame.height - height
+        bottomConstraint.constant = -temp
         
         self.view.layoutIfNeeded()
         
+        UIView.animate(withDuration: 0.36, delay: 0.2) {
+            taskView.title.alpha = 1
+            taskView.button.alpha = 1
+        }
+        
         UIView.animate(withDuration: 0.36) {
+            taskView.layer.cornerRadius = 0
+            self.bottomConstraint.constant = 0
             self.fullViewLeadingConstraint.constant = 0
             self.fullViewTrailingConstraint.constant = 0
             let height = (source.cover_photo.height * self.view.frame.width) / source.cover_photo.width

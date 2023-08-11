@@ -20,8 +20,8 @@ class TaskView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .systemBackground
+        clipsToBounds = true
         
-        imageView.backgroundColor = .systemBlue
         imageView.contentMode = .scaleAspectFit
         addSubview(imageView)
         
@@ -50,7 +50,6 @@ class TaskView: UIView {
         desc.topAnchor.constraint(equalTo: imageView.bottomAnchor).isActive = true
         desc.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
         desc.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        desc.heightAnchor.constraint(equalToConstant: 100).isActive = true
 //        desc.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         
         text.text = "Announced in 2014, the Swift programming language has quickly become one of the fastest growing languages in history. Swift makes it easy to write software that is incredibly fast and safe by design. Our goals for Swift are ambitious: we want to make programming simple things easy, and difficult things possible."
